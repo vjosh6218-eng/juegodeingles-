@@ -1,0 +1,104 @@
+/* ====================== HERO SLIDER ====================== */
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 450px;           /* Altura moderada */
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.slides-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  animation: fadeSlides 25s infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.75);
+}
+
+/* Animación de difuminado (fade) */
+@keyframes fadeSlides {
+  0%    { opacity: 0; }
+  5%    { opacity: 1; }
+  20%   { opacity: 1; }
+  25%   { opacity: 0; }
+  100%  { opacity: 0; }
+}
+
+/* Delay para cada slide */
+.slide:nth-child(1) { animation-delay: 0s; }
+.slide:nth-child(2) { animation-delay: 5s; }
+.slide:nth-child(3) { animation-delay: 10s; }
+.slide:nth-child(4) { animation-delay: 15s; }
+.slide:nth-child(5) { animation-delay: 20s; }
+
+/* Contenido centrado */
+.slide-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+  color: white;
+  text-shadow: 0 3px 10px rgba(0,0,0,0.7);
+}
+
+.slide-content h2 {
+  font-size: 2.8rem;
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+
+/* Botón */
+.slider-btn {
+  display: inline-block;
+  padding: 16px 40px;
+  background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  border: 3px solid white;
+}
+
+.slider-btn:hover {
+  transform: scale(1.1) translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-slider {
+    height: 380px;
+  }
+  
+  .slide-content h2 {
+    font-size: 2rem;
+  }
+  
+  .slider-btn {
+    padding: 14px 30px;
+    font-size: 1.2rem;
+  }
+}

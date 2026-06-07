@@ -1,0 +1,138 @@
+/* --- ESTILOS GENERALES DEL FOOTER --- */
+.kids-footer {
+    background-color: #3b82f6; /* Azul brillante */
+    color: #ffffff;
+    padding: 50px 0 20px 0;
+    font-family: 'Arial Rounded MT Bold', 'Comic Sans MS', sans-serif;
+    border-top: 6px solid #fbbf24; /* Línea divertida amarilla */
+    margin-top: 50px;
+    width: 100%; /* El fondo cubre todo el ancho */
+}
+
+/* CONTENEDOR INTERNO AL 90% (Igual que la grilla) */
+.footer-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto; /* Centra el contenido */
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    box-sizing: border-box;
+}
+
+/* --- ESTILOS DE COLUMNAS --- */
+.footer-column {
+    flex: 1;
+}
+
+/* Columna 1: Logo */
+.footer-logo {
+    font-size: 2rem;
+    margin: 0 0 15px 0;
+    color: #ffffff;
+}
+.footer-logo span {
+    color: #fde047; /* Resalta "Kids" en amarillo */
+}
+.brand-info p {
+    line-height: 1.6;
+    font-size: 1rem;
+    color: #eff6ff;
+}
+
+/* Columna 2: Enlaces */
+.footer-column h3 {
+    font-size: 1.4rem;
+    color: #fde047;
+    margin: 0 0 20px 0;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.05rem;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    color: #fde047;
+    transform: translateX(5px);
+}
+
+/* Columna 3: Redes Sociales */
+.footer-social p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #eff6ff;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons .icon {
+    font-size: 1.8rem;
+    background: #ffffff;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.social-icons .icon:hover {
+    transform: translateY(-5px) scale(1.1);
+}
+.social-icons .facebook:hover { background-color: #e0f2fe; }
+.social-icons .youtube:hover { background-color: #fee2e2; }
+.social-icons .instagram:hover { background-color: #fce7f3; }
+
+/* --- BARRA INFERIOR DE CRÉDITOS (Alineada al 90%) --- */
+.footer-bottom {
+    width: 90%;
+    max-width: 1400px;
+    margin: 40px auto 0 auto; /* Centrada al 90% */
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.95rem;
+    color: #bfdbfe;
+}
+
+/* --- DISEÑO RESPONSIVO (Móviles) --- */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column; 
+        text-align: center;
+        gap: 30px;
+        width: 95%; /* Da un poco más de margen en pantallas pequeñas */
+    }
+
+    .footer-links a:hover {
+        transform: scale(1.05);
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+    
+    .footer-bottom {
+        width: 95%;
+    }
+}

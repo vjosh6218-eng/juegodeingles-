@@ -1,0 +1,164 @@
+/* --- CONTENEDOR PRINCIPAL (80% de la página) --- */
+.game-section {
+    width: 80%;
+    max-width: 1200px;
+    margin: 20px auto; /* Centra la sección en la página */
+    background: #ffffff;
+    border: 4px solid #4ade80;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    display: flex;
+    gap: 20px;
+    box-sizing: border-box;
+    font-family: 'Arial Rounded MT Bold', 'Comic Sans MS', sans-serif;
+}
+
+/* --- PARTE IZQUIERDA: IMAGEN PRINCIPAL --- */
+.left-side {
+    flex: 1;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    background-color: #e0f2fe;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.left-side img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.left-side img:hover {
+    transform: scale(1.02);
+}
+
+/* --- PARTE DERECHA: CINTA CON SCROLL --- */
+.right-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 400px; /* Limita la altura para activar la barra desplazadora */
+    overflow-y: auto;  /* Desplazamiento vertical */
+    padding-right: 10px;
+}
+
+/* Diseño divertido para la barra desplazadora (Scrollbar) */
+.right-side::-webkit-scrollbar {
+    width: 10px;
+}
+.right-side::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+.right-side::-webkit-scrollbar-thumb {
+    background: #fbbf24;
+    border-radius: 10px;
+}
+.right-side::-webkit-scrollbar-thumb:hover {
+    background: #f59e0b;
+}
+
+/* Tarjetas de la cinta */
+.scroll-item {
+    background: #fef08a;
+    border: 3px solid #fde047;
+    border-radius: 12px;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+}
+
+.scroll-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.scroll-item img {
+    width: 100%;
+    max-height: 120px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* --- VENTANA MODAL --- */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    border: 5px solid #3b82f6;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    font-family: 'Arial Rounded MT Bold', 'Comic Sans MS', sans-serif;
+    animation: popIn 0.3s ease;
+}
+
+#modalTitle {
+    color: #3b82f6; 
+    margin-top: 10px;
+}
+
+#modalDescription {
+    font-size: 1.2rem; 
+    color: #334155;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #64748b;
+}
+
+.close-btn:hover {
+    color: #ef4444;
+}
+
+/* --- ADAPTACIÓN MÓVIL (Responsivo) --- */
+@media (max-width: 768px) {
+    .game-section {
+        width: 95%; /* Toma más espacio en pantallas pequeñas */
+        flex-direction: column;
+    }
+    .right-side {
+        max-height: 250px;
+        flex-direction: row; /* El scroll se vuelve horizontal en celulares */
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    .scroll-item img {
+        width: 150px;
+        height: 100px;
+    }
+}
