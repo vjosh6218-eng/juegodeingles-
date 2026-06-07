@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍎 Fruit Memory Game</title>
+  <link rel="stylesheet" href="css/memorama.css">
+</head>
+<body>
+
+
+    
+  <header>
+    <h1>🍎 Fruit Memory Game</h1>
+    <p>Encuentra cada par: imagen + nombre en inglés</p>
+  </header>
+
+  <div id="stats">
+    <div class="stat-pill">🔄 Movimientos <span class="num" id="moves-val">0</span></div>
+    <div class="stat-pill">✅ Parejas <span class="num" id="pairs-val">0</span> / 9</div>
+  </div>
+
+  <div id="grid"></div>
+
+  <div id="controls">
+    <button id="btn-reset">🔄 Nuevo juego</button>
+  </div>
+
+  <div id="legend"></div>
+
+  <div id="win-overlay">
+    <h2>🎉 ¡Ganaste!</h2>
+    <p id="win-text"></p>
+    <button onclick="newGame()">Jugar de nuevo</button>
+  </div>
+
+  <script src="js/memorama.js"></script>
+</body>
+</html>

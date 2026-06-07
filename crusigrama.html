@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fruits & Veggies Crossword</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/crusigrama.css">
+</head>
+<body>
+
+  <div class="bg-decor" id="bg-decor"></div>
+
+  <div class="container">
+    <header>
+      <h1>🌽 Fruits & Veggies Crossword 🍎</h1>
+      <p>Fill in the crossword — learn food words in English!</p>
+    </header>
+
+    <div class="game-layout">
+      <div>
+        <div id="crossword-grid"></div>
+        <div class="btn-row">
+          <button class="btn-check" onclick="checkAll()">✅ Check</button>
+          <button class="btn-reveal" onclick="revealSelected()">💡 Reveal Letter</button>
+          <button class="btn-reset" onclick="resetGame()">🔄 Reset</button>
+        </div>
+        <div id="score-bar">
+          Progress: <span id="pct">0</span>%
+          <div id="progress"><div id="progress-fill"></div></div>
+        </div>
+        <div class="hint-bar" id="hint-bar"></div>
+      </div>
+
+      <div class="clues-panel">
+        <div class="clue-section across">
+          <h3>➡️ Across</h3>
+          <ul class="clue-list" id="across-clues"></ul>
+        </div>
+        <div class="clue-section down">
+          <h3>⬇️ Down</h3>
+          <ul class="clue-list" id="down-clues"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="win-modal">
+    <div class="win-box">
+      <span class="trophy">🏆</span>
+      <h2>Amazing Job!</h2>
+      <p>You completed the crossword!<br>You know your fruits & veggies! 🎉</p>
+      <button class="btn-check" onclick="resetGame(); document.getElementById('win-modal').classList.remove('show')">Play Again</button>
+    </div>
+  </div>
+
+  <script src="js/crusigrama.js"></script>
+</body>
+</html>

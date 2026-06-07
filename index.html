@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English Fun Kids</title>
+  <link rel="stylesheet" href="css/estilo.css">
+  <link rel="stylesheet" href="css/slider.css">
+  <link rel="stylesheet" href="css/cuadro.css">
+  <link rel="stylesheet" href="css/grilla.css">
+  <link rel="stylesheet" href="css/pie.css">
+  <link rel="stylesheet" href="css/memorama.css">
+  <link rel="stylesheet" href="css/sopa.css">
+  <link rel="stylesheet" href="css/anagrama.css">
+  <link rel="stylesheet" href="css/crusigrama.css">
+</head>
+<body>
+
+  <nav>
+    <!-- Logo -->
+    <div class="logo">
+      <span>🤗</span>
+      English kids
+    </div>
+
+    <!-- Checkbox para menú móvil -->
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="hamburger">☰</label>
+
+    <!-- Menú -->
+    <div class="menu">
+      <a href="#">Inicio</a>
+      <a href="#juegos">Juegos</a>
+   
+    </div>
+  </nav>
+
+  <!-- Slider Hero -->
+  <section class="hero-slider">
+    <div class="slides-container">
+
+      <!-- Slide 1 -->
+      <div class="slide">
+        <img src="imagenes/sopa de letras en inglish.jpg" alt="Juego 1">
+        <div class="slide-content">
+          <h2>Sopa de letras</h2>
+          <a href="#" class="slider-btn">¡Jugar Ahora!</a>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="slide">
+        <img src="imagenes/03.png" alt="Juego 2">
+        <div class="slide-content">
+          <h2>Memorama de frutas</h2>
+          <a href="#" class="slider-btn">¡Comenzar Juego!</a>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="slide">
+        <img src="imagenes/ahorcado en ionglesh.png" alt="Juego 3">
+        <div class="slide-content">
+          <h2>El ahorcado</h2>
+          <a href="#" class="slider-btn">juega ahora</a>
+        </div>
+      </div>
+
+    
+     
+    </div>
+  </section>
+
+<section class="game-section">
+    
+    <div class="left-side">
+        <img src="imagenes/ahorcado en ionglesh.png" alt="Juego Principal" onclick="openModal('¡Bienvenido al juego principal!', 'Aprende el nombres de las frutas jugando con este juego.')">
+    </div>
+
+    <div class="right-side">
+        
+        <div class="scroll-item" onclick="openModal('sopa de letras', 'encuentra el nombre la fruta')">
+            <img src="imagenes/sopa de letras en inglish.jpg" alt="sopa de letras ">
+        </div>
+        
+        <div class="scroll-item" onclick="openModal('crusigrama', ' juega y aprende ordenando las palabras para saber el nombre de las frutas.')">
+            <img src="imagenes/crigrama.jpg" alt="crusigrama">
+        </div>
+        
+        <div class="scroll-item" onclick="openModal('anagrama', 'ordena el nombre de la fruta')">
+            <img src="imagenes/anagrama.jpg" alt="anagrama ">
+        </div>
+
+        <div class="scroll-item" onclick="openModal('memorama', 'encuentra el nombre de la fruta')">
+            <img src="imagenes/9e66aaca-9261-4e23-8c3b-4b5f1597fa81.jpg" alt="Frutas">
+        </div>
+
+    </div>
+</section>
+
+<div id="infoModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle">Título</h2>
+        <p id="modalDescription">Descripción del juego.</p>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('infoModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+
+    function openModal(title, description) {
+        modalTitle.innerText = title;
+        modalDescription.innerText = description;
+        modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+        modal.style.display = 'none';
+    }
+
+    // Cierra el modal si se hace clic fuera del recuadro blanco
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+</script>
+
+<section class="grid-section" id="juegos">
+    
+    <div class="grid-card">
+        <div class="card-image">
+            <a href="memorama.html"><img src="imagenes/9e66aaca-9261-4e23-8c3b-4b5f1597fa81.jpg" alt=""></a>
+        </div>
+        <div class="card-text">
+            <h3>Memorama</h3>
+            <p>¡Encuentra cada divertido dibujo con la tarjeta de su palabra y entrena tu supermemoria!</p>
+        </div>
+    </div>
+
+    <div class="grid-card">
+        <div class="card-image">
+           <a href="sopa.html"><img src="imagenes/sopa de letras en inglish.jpg" alt=""></a>
+        </div>
+        <div class="card-text">
+            <h3>sopa de letras</h3>
+            <p>¡Encuentra las palabras escondidas y demuestra que eres el mejor detective de letras!.</p>
+        </div>
+    </div>
+
+    <div class="grid-card">
+        <div class="card-image">
+            <img src="imagenes/crusigramassssss.jpg" alt="">
+        </div>
+        <div class="card-text">
+            <h3>crusigrama</h3>
+            <p>¡Sigue las pistas, cruza las palabras correctas y conviértete en un experto resolviendo acertijos!.</p>
+        </div>
+    </div>
+
+    <div class="grid-card">
+        <div class="card-image">
+            <img src="imagenes/ahorcadoi.jpg" alt="">
+        </div>
+        <div class="card-text">
+            <h3>El ahorcado</h3>
+            <p>¡Pon a prueba tu ingenio, adivina la palabra oculta letra por letra y diviértete aprendiendo!.</p>
+        </div>
+    </div>
+
+     <div class="grid-card">
+        <div class="card-image">
+           <a href="anagrama.html"><img src="imagenes/anagrama.jpg" alt=""></a> 
+        </div>
+        <div class="card-text">
+            <h3>anagrama</h3>
+            <p>ordena las letras.
+            </p>
+        </div>
+    </div>
+
+    
+
+         <div class="grid-card">
+        <div class="card-image">
+           <a href="crusigrama.html"> <img src="imagenes/crigrama.jpg" alt="Numbers"></a>
+        </div>
+        <div class="card-text">
+            <h3>crusigrama</h3>
+            <p>pronunsiaciones de las Frutas y verduras.</p>
+        </div>
+    </div>
+
+
+</section>
+</body>
+    <!-- PIE DE PÁGINA INFANTIL -->
+<footer class="kids-footer">
+    <div class="footer-container">
+        
+        <!-- Columna 1: Logo y Eslogan -->
+        <div class="footer-column brand-info">
+            <h2 class="footer-logo">🎈 English<span>Kids</span></h2>
+            <p>¡El rincón más divertido de internet para aprender inglés jugando, cantando y explorando!</p>
+        </div>
+
+        <!-- Columna 2: Enlaces Rápidos -->
+        <div class="footer-column footer-links">
+            <h3>Explore 🚀</h3>
+            <ul>
+                <li><a href="#games">Juegos</a></li>
+             
+               
+               
+            </ul>
+        </div>
+
+        <!-- Columna 3: Redes Sociales / Contacto -->
+        <div class="footer-column footer-social">
+            <h3>Follow Us! ⭐</h3>
+            <p>Acompáñanos en nuestras redes sociales para más actividades:</p>
+            <div class="social-icons">
+                <!-- Puedes cambiar los '#' por los enlaces de tus redes reales -->
+                <a href="#" class="icon facebook" title="Facebook">📘</a>
+                <a href="#" class="icon youtube" title="YouTube">📺</a>
+                <a href="#" class="icon instagram" title="Instagram">📸</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Barra de Derechos de Autor -->
+    <div class="footer-bottom">
+        <p>&copy; 2026 EnglishKids. Made with 💛 for happy learners.</p>
+    </div>
+</footer>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍎 Anagrama de Frutas y Verduras</title>
+  <link rel="stylesheet" href="css/anagrama.css">
+</head>
+<body>
+
+  <header>
+    <h1>🥕 Word Scramble 🍓</h1>
+    <p>Ordena las letras y aprende inglés</p>
+  </header>
+
+  <div id="hud">
+    <div class="hud-pill">⭐ Puntos <span class="val" id="score-val">0</span></div>
+    <div class="hud-pill">📝 Palabra <span class="val" id="word-num">1</span> / <span class="val" id="total-words">24</span></div>
+  </div>
+
+  <div id="progress-wrap">
+    <div id="progress-bar"></div>
+  </div>
+
+  <div id="card">
+    <div id="category-badge" class="fruit">🍎 Fruta</div>
+    <span id="emoji-display">🍎</span>
+    <p id="hint-text"></p>
+    <div id="answer-slots"></div>
+    <div id="letter-tiles"></div>
+    <div id="actions">
+      <button class="btn btn-clear" id="btn-clear">🗑 Borrar</button>
+      <button class="btn btn-hint"  id="btn-hint">💡 Pista</button>
+      <button class="btn btn-skip"  id="btn-skip">⏭ Saltar</button>
+    </div>
+  </div>
+
+  <div id="feedback"></div>
+
+  <div id="controls">
+    <button id="btn-reset">🔄 Nuevo juego</button>
+  </div>
+
+  <div id="win-overlay">
+    <div class="trophy">🏆</div>
+    <h2>¡Lo lograste!</h2>
+    <p>Terminaste todas las palabras</p>
+    <p>Puntaje: <strong id="win-score">0</strong> / <strong id="win-max">240</strong> pts 🌟</p>
+    <button class="btn-play-again" onclick="newGame()">¡Jugar de nuevo!</button>
+  </div>
+
+  <script src="js/anagrama.js"></script>
+</body>
+</html>

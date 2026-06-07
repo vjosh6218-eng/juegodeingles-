@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎈 Word Explorer: ¡El Ahorcado! 🎈</title>
+    <style>
+        /* --- ESTILOS COMPLETO (CSS) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@500;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ffdeea 0%, #e2f5ff 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .game-container {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 15px 0px #b5deda, 0 20px 25px rgba(0,0,0,0.1);
+            border: 4px solid #4ecdc4;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            color: #ff6b6b;
+            font-size: 2.5rem;
+            text-shadow: 3px 3px 0px #ffeaa7;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #778ca3;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        /* El Canvas del Personaje */
+        .canvas-container {
+            background-color: #f7f9fa;
+            border-radius: 20px;
+            border: 3px dashed #cbd5e1;
+            margin: 0 auto 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 220px;
+            height: 220px;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        /* Palabra Secreta y Pista */
+        .clue-box {
+            background: #ffeaa7;
+            color: #d63031;
+            padding: 8px 15px;
+            border-radius: 15px;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 0 #eccc68;
+        }
+
+        .word-display {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .letter-slot {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2rem;
+            width: 45px;
+            height: 55px;
+            border-bottom: 5px solid #4ecdc4;
+            color: #2d3436;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Teclado de Letras */
+        .keyboard {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .key {
+            font-family: 'Fredoka One', cursive;
+            background: #a8e6cf;
+            border: none;
+            border-bottom: 4px solid #81c784;
+            border-radius: 12px;
+            padding: 10px 0;
+            font-size: 1.2rem;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: transform 0.1s, background-color 0.2s;
+        }
+
+        .key:active:not(:disabled) {
+            transform: translateY(4px);
+            border-bottom-width: 0px;
+        }
+
+        .key:disabled {
+            background: #dcdde1;
+            border-bottom-color: #b2bec3;
+            color: #7f8c8d;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .key.correct {
+            background: #ff8b94 !important;
+            border-bottom-color: #ff6b6b !important;
+            color: white;
+        }
+
+        /* Mensajes de Victoria / Derrota */
+        .message {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            min-height: 35px;
+        }
+        .win-text { color: #2ecc71; font-family: 'Fredoka One', cursive; }
+        .lose-text { color: #e74c3c; font-family: 'Fredoka One', cursive; }
+
+        /* Botón de Reinicio */
+        .reset-btn {
+            font-family: 'Fredoka One', cursive;
+            background: #ff9f43;
+            color: white;
+            border: none;
+            border-bottom: 5px solid #ee5253;
+            padding: 12px 30px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 159, 67, 0.4);
+            transition: all 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: #ffb142;
+            transform: scale(1.05);
+        }
+
+        .reset-btn:active {
+            transform: translateY(4px);
+            border-bottom-width: 0px;
+        }
+
+        /* Responsivo para pantallas pequeñas */
+        @media (max-width: 480px) {
+            .keyboard { grid-template-columns: repeat(6, 1fr); }
+            h1 { font-size: 2rem; }
+            .letter-slot { font-size: 1.5rem; width: 35px; height: 45px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>Word Explorer 🌟</h1>
+        <p class="subtitle">¡Adivina la palabra en inglés antes de que caiga la noche!</p>
+
+        <div class="canvas-container">
+            <canvas id="hangmanCanvas" width="200" height="200"></canvas>
+        </div>
+
+        <div>
+            <span class="clue-box" id="clue">Pista: Categoria</span>
+        </div>
+
+        <div class="word-display" id="wordDisplay"></div>
+
+        <div class="message" id="message"></div>
+
+        <div class="keyboard" id="keyboard"></div>
+
+        <button class="reset-btn" id="resetBtn">¡Jugar Otra Vez! 🎮</button>
+    </div>
+
+    <script>
+        /* --- LÓGICA DEL JUEGO (JAVASCRIPT) --- */
+
+        // Banco de palabras infantiles con categorías en español para ayudarles
+        const wordsList = [
+            { word: "APPLE", clue: "🍎 Una fruta roja y crujiente" },
+            { word: "DOG", clue: "🐶 Hace 'guau guau'" },
+            { word: "CAT", clue: "🐱 Le gusta tomar leche y hace 'miau'" },
+            { word: "SUN", clue: "☀️ Brilla alto en el cielo y da calor" },
+            { word: "BALL", clue: "⚽ Es redonda y rebota mucho" },
+            { word: "FISH", clue: "🐟 Vive nadando bajo el agua" },
+            { word: "FROG", clue: "🐸 Es verde, salta y hace 'croac'" },
+            { word: "BIRD", clue: "🐦 Tiene plumas y vuela por el aire" },
+            { word: "MILK", clue: "🥛 Bebida blanca que nos da la vaca" },
+            { word: "LION", clue: "🦁 El rey de la selva con una gran melena" },
+            { word: "CAKE", clue: "🎂 Lo comes en tus cumpleaños" },
+            { word: "TREE", clue: "🌳 Tiene hojas verdes y un tronco de madera" }
+        ];
+
+        let selectedWordObj;
+        let guessedLetters;
+        let mistakes;
+        const maxMistakes = 6;
+
+        // Elementos del HTML
+        const wordDisplay = document.getElementById('wordDisplay');
+        const clueElement = document.getElementById('clue');
+        const messageElement = document.getElementById('message');
+        const keyboardContainer = document.getElementById('keyboard');
+        const resetBtn = document.getElementById('resetBtn');
+        const canvas = document.getElementById('hangmanCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Inicializar el juego
+        function initGame() {
+            mistakes = 0;
+            guessedLetters = [];
+            // Seleccionar palabra aleatoria
+            selectedWordObj = wordsList[Math.floor(Math.random() * wordsList.length)];
+            
+            clueElement.textContent = `Pista: ${selectedWordObj.clue}`;
+            messageElement.textContent = "";
+            
+            drawHangman(0);
+            createWordSlots();
+            createKeyboard();
+        }
+
+        // Crear los guiones de las letras
+        function createWordSlots() {
+            wordDisplay.innerHTML = "";
+            const word = selectedWordObj.word;
+            for (let i = 0; i < word.length; i++) {
+                const slot = document.createElement('div');
+                slot.classList.add('letter-slot');
+                slot.setAttribute('data-letter', word[i]);
+                slot.textContent = "";
+                wordDisplay.appendChild(slot);
+            }
+        }
+
+        // Crear el teclado de la A a la Z
+        function createKeyboard() {
+            keyboardContainer.innerHTML = "";
+            const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            
+            for (let char of alphabet) {
+                const button = document.createElement('button');
+                button.textContent = char;
+                button.classList.add('key');
+                button.addEventListener('click', () => handleGuess(char, button));
+                keyboardContainer.appendChild(button);
+            }
+        }
+
+        // Procesar el intento del jugador
+        function handleGuess(letter, button) {
+            button.disabled = true;
+            guessedLetters.push(letter);
+
+            if (selectedWordObj.word.includes(letter)) {
+                // Letra Correcta
+                button.classList.add('correct');
+                revealLetter(letter);
+                checkWin();
+            } else {
+                // Letra Incorrecta
+                mistakes++;
+                drawHangman(mistakes);
+                checkLose();
+            }
+        }
+
+        // Revelar letras acertadas
+        function revealLetter(letter) {
+            const slots = document.querySelectorAll('.letter-slot');
+            slots.forEach(slot => {
+                if (slot.getAttribute('data-letter') === letter) {
+                    slot.textContent = letter;
+                    // Pequeña animación infantil al aparecer
+                    slot.style.transform = "scale(1.2)";
+                    setTimeout(() => slot.style.transform = "scale(1)", 150);
+                }
+            });
+        }
+
+        // Verificar si ganó
+        function checkWin() {
+            const slots = document.querySelectorAll('.letter-slot');
+            let hasWon = true;
+            slots.forEach(slot => {
+                if (slot.textContent === "") hasWon = false;
+            });
+
+            if (hasWon) {
+                messageElement.innerHTML = "<span class='win-text'>🎉 ¡Felicidades! ¡Ganaste! 🌟</span>";
+                disableKeyboard();
+            }
+        }
+
+        // Verificar si perdió
+        function checkLose() {
+            if (mistakes >= maxMistakes) {
+                messageElement.innerHTML = `<span class='lose-text'>😢 ¡Oh no! La palabra era: ${selectedWordObj.word}</span>`;
+                // Revelar la palabra completa en rojo
+                const slots = document.querySelectorAll('.letter-slot');
+                slots.forEach(slot => {
+                    if(slot.textContent === "") {
+                        slot.textContent = slot.getAttribute('data-letter');
+                        slot.style.color = "#ff6b6b";
+                    }
+                });
+                disableKeyboard();
+            }
+        }
+
+        // Desactivar botones al terminar el juego
+        function disableKeyboard() {
+            const keys = document.querySelectorAll('.key');
+            keys.forEach(key => key.disabled = true);
+        }
+
+        // --- DIBUJO ESTILO INFANTIL CON CANVAS ---
+        // En lugar de una horca tradicional, dibujamos un tierno espantapájaros/muñeco
+        function drawHangman(step) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Estilos de línea bonitos y gruesos
+            ctx.lineWidth = 5;
+            ctx.lineCap = "round";
+            ctx.strokeStyle = "#4a4a4a";
+
+            // Paso 0: Base / Césped y poste de madera alegre
+            ctx.beginPath();
+            ctx.strokeStyle = "#78e08f"; // Césped verde
+            ctx.moveTo(20, 180);
+            ctx.lineTo(180, 180);
+            ctx.stroke();
+
+            if (step >= 0) {
+                // Poste de madera alegre (marrón)
+                ctx.beginPath();
+                ctx.strokeStyle = "#f0932b";
+                ctx.moveTo(50, 180);
+                ctx.lineTo(50, 40);
+                ctx.lineTo(130, 40);
+                ctx.lineTo(130, 60);
+                ctx.stroke();
+                
+                // Cuerda/Hilo morado para que parezca un juguete o piñata
+                ctx.beginPath();
+                ctx.strokeStyle = "#9b59b6";
+                ctx.moveTo(130, 60);
+                ctx.lineTo(130, 80);
+                ctx.stroke();
+            }
+
+            // Paso 1: Cabeza (Una carita feliz que se asusta si pierdes)
+            if (step >= 1) {
+                ctx.beginPath();
+                ctx.fillStyle = "#ffebd7";
+                ctx.strokeStyle = "#4a4a4a";
+                ctx.arc(130, 95, 15, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+                
+                // Ojitos cariñosos
+                ctx.fillStyle = "#4a4a4a";
+                ctx.beginPath();
+                ctx.arc(125, 92, 2, 0, Math.PI * 2);
+                ctx.arc(135, 92, 2, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Sonrisa (si hay pocos errores) o boquita triste (si faltan pocos pasos)
+                ctx.beginPath();
+                if (step < 5) {
+                    ctx.arc(130, 96, 5, 0, Math.PI); // Sonrisa
+                } else {
+                    ctx.arc(130, 102, 4, Math.PI, 0); // Boquita triste
+                }
+                ctx.stroke();
+            }
+
+            // Paso 2: Cuerpo (Un lindo saquito/camisa de color)
+            if (step >= 2) {
+                ctx.beginPath();
+                ctx.strokeStyle = "#3498db"; // Camisa azul
+                ctx.lineWidth = 7;
+                ctx.moveTo(130, 110);
+                ctx.lineTo(130, 145);
+                ctx.stroke();
+                ctx.lineWidth = 5; // Reset
+            }
+
+            // Paso 3: Brazo Izquierdo
+            if (step >= 3) {
+                ctx.beginPath();
+                ctx.strokeStyle = "#3498db";
+                ctx.moveTo(130, 115);
+                ctx.lineTo(110, 130);
+                ctx.stroke();
+            }
+
+            // Paso 4: Brazo Derecho
+            if (step >= 4) {
+                ctx.beginPath();
+                ctx.strokeStyle = "#3498db";
+                ctx.moveTo(130, 115);
+                ctx.lineTo(150, 130);
+                ctx.stroke();
+            }
+
+            // Paso 5: Pierna Izquierda
+            if (step >= 5) {
+                ctx.beginPath();
+                ctx.strokeStyle = "#e67e22"; // Pantalón naranja
+                ctx.moveTo(130, 145);
+                ctx.lineTo(115, 170);
+                ctx.stroke();
+            }
+
+            // Paso 6: Pierna Derecha (Fin del juego)
+            if (step >= 6) {
+                ctx.beginPath();
+                ctx.strokeStyle = "#e67e22";
+                ctx.moveTo(130, 145);
+                ctx.lineTo(145, 170);
+                ctx.stroke();
+                
+                // Ojos en forma de "X" porque perdió
+                ctx.fillStyle = "#f7f9fa";
+                ctx.beginPath();
+                ctx.arc(130, 95, 14, 0, Math.PI*2); // tapar ojos anteriores
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.strokeStyle = "#e74c3c"; // X rojas
+                ctx.lineWidth = 2;
+                // Ojo X izquierdo
+                ctx.beginPath(); ctx.moveTo(122, 90); ctx.lineTo(126, 94); ctx.moveTo(126, 90); ctx.lineTo(122, 94); ctx.stroke();
+                // Ojo X derecho
+                ctx.beginPath(); ctx.moveTo(134, 90); ctx.lineTo(138, 94); ctx.moveTo(138, 90); ctx.lineTo(134, 94); ctx.stroke();
+                // Boca de asombro
+                ctx.beginPath(); ctx.arc(130, 102, 3, 0, Math.PI*2); ctx.stroke();
+            }
+        }
+
+        // Evento para reiniciar
+        resetBtn.addEventListener('click', initGame);
+
+        // Arrancar el juego por primera vez al cargar la página
+        initGame();
+    </script>
+</body>
+</html>

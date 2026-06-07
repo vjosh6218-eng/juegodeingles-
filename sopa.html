@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍓 Sopa de Letras de Frutas</title>
+  <link rel="stylesheet" href="css/sopa.css">
+</head>
+<body>
+
+  <header>
+    <h1>🍓 Sopa de Frutas 🍍</h1>
+    <p>Encuentra todas las frutas en inglés</p>
+  </header>
+
+  <div id="stats">
+    <div class="stat-pill">✅ Encontradas <span class="num" id="found-val">0</span> / 9</div>
+  </div>
+
+  <div id="game-area">
+    <div id="grid-wrap">
+      <div id="grid"></div>
+    </div>
+    <div id="word-list"></div>
+  </div>
+
+  <div id="controls">
+    <button id="btn-reset">🔄 Nueva sopa</button>
+  </div>
+
+  <div id="win-overlay">
+    <h2>🎉 ¡Increíble!</h2>
+    <p id="win-text"></p>
+    <button onclick="newGame()">Jugar de nuevo</button>
+  </div>
+
+  <script src="js/sopa.js"></script>
+</body>
+</html>
